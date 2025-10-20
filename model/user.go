@@ -1,6 +1,10 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
 	ID        int        `json:"id" gorm:"AUTO_INCREMENT:primaryKey"`
@@ -21,12 +25,12 @@ const (
 )
 
 type Task struct {
-	ID          int        `json:"id" gorm:"AUTO_INCREMENT:primaryKey"`
-	Title       string     `json:"title"`
-	Description string     `json:"description"`
-	Status      Status     `json:"status" gorm:"type:enum('done','pending','in-progress');default:'pending'"`
-	UserID      int        `json:"user_id"`
-	CreatedAt   time.Time  `json:"created_at"`
-	UpdatedAt   time.Time  `json:"updated_at"`
-	DeletedAt   *time.Time `json:"deleted_at" gorm:"index"`
+	ID          int            `json:"id" gorm:"AUTO_INCREMENT:primaryKey"`
+	Title       string         `json:"title"`
+	Description string         `json:"description"`
+	Status      Status         `json:"status" gorm:"type:enum('done','pending','in-progress');default:'pending'"`
+	UserID      int            `json:"user_id"`
+	CreatedAt   time.Time      `json:"created_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
+	DeletedAt   gorm.DeletedAt `json:"deleted_at" gorm:"index"`
 }

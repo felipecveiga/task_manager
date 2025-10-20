@@ -12,6 +12,7 @@ import (
 type TaskHandler interface {
 	Create(c echo.Context) error
 	GetTasks(c echo.Context) error
+	Delete(c echo.Context) error
 }
 
 type taskHandler struct {
@@ -56,3 +57,22 @@ func (h *taskHandler) GetTasks(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, tasks)
 }
+
+func (h *taskHandler) Delete(c echo.Context) error {
+ 	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "id inválido"})
+	}
+
+	taskID, err := strconv.Atoi(c.Param("task_id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "id inválido"})
+	}
+
+	err = h.Service.DeleteTask(userID, taskID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}	
+
+	return c.NoContent(http.StatusNoContent)
+}	

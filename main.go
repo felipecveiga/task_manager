@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/felipecveiga/task_manager/db"
 	"github.com/felipecveiga/task_manager/handler"
 	"github.com/felipecveiga/task_manager/repository"
@@ -32,7 +30,7 @@ func main() {
 	// Rotas Task
 	e.POST("/user/:id/tasks", taskHandler.Create)
 	e.GET("/user/:id/tasks", taskHandler.GetTasks)
+	e.DELETE("/user/:id/tasks/:task_id", taskHandler.Delete)
 
-	fmt.Println(clientDB)
 	e.Logger.Fatal(e.Start(":8080"))
 }

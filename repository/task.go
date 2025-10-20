@@ -9,7 +9,8 @@ import (
 
 type TaskRepository interface {
 	CreateTaskFromDB(userID int, task *model.Task) error
-	 GetTasksFromDB(userID int) ([]model.Task, error)
+	GetTasksFromDB(userID int) ([]model.Task, error)
+	DeleteTaskFromDB(userID int, taskID int) error
 }
 
 type taskRepository struct {
@@ -46,4 +47,13 @@ func (r *taskRepository) GetTasksFromDB(userID int) ([]model.Task, error) {
 	}
 
 	return tasks, nil
+}
+
+func (r *taskRepository) DeleteTaskFromDB(userID int, taskID int) error {
+	err := r.DB.Where("user_id = ? AND id = ?", userID, taskID).Delete(&model.Task{}).Error
+	if err != nil {
+		return fmt.Errorf("erro ao deletar tarefa no banco de dados: %w", err)
+	}
+
+	return nil
 }

@@ -7,6 +7,7 @@ import (
 
 type TaskService interface {
 	CreateTask(userID int, task *model.Task) error
+	GetTasksByID(userID int) ([]model.Task, error)
 }
 
 type taskService struct {
@@ -27,4 +28,14 @@ func (s *taskService) CreateTask(userID int, task *model.Task) error {
 	}
 
 	return nil
+}
+
+func (s *taskService) GetTasksByID(userID int) ([]model.Task, error) {
+	
+	tasks, err := s.Repository.GetTasksFromDB(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return tasks, nil
 }

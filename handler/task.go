@@ -11,6 +11,7 @@ import (
 
 type TaskHandler interface {
 	Create(c echo.Context) error
+	GetTasks(c echo.Context) error
 }
 
 type taskHandler struct {
@@ -40,4 +41,18 @@ func (h *taskHandler) Create(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusCreated, task)
+}
+
+func (h *taskHandler) GetTasks(c echo.Context) error {
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "id inválido"})
+	}
+
+	tasks, err := h.Service.GetTasksByID(userID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, tasks)
 }

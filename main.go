@@ -31,6 +31,7 @@ func main() {
 
 	// Rotas Task
 	e.POST("/user/:id/tasks", taskHandler.Create)
+	e.GET("/user/:id/tasks", taskHandler.GetTasks)
 
 	fmt.Println(clientDB)
 	e.Logger.Fatal(e.Start(":8080"))

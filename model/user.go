@@ -10,7 +10,6 @@ type User struct {
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at" gorm:"index"`
-	Tasks     []Task     `gorm:"foreignKey:UserID"`
 }
 
 type Status string

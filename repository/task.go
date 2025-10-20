@@ -9,6 +9,7 @@ import (
 
 type TaskRepository interface {
 	CreateTaskFromDB(userID int, task *model.Task) error
+	 GetTasksFromDB(userID int) ([]model.Task, error)
 }
 
 type taskRepository struct {
@@ -35,4 +36,14 @@ func (r *taskRepository) CreateTaskFromDB(userID int, task *model.Task) error {
 	}
 
 	return nil
+}
+
+func (r *taskRepository) GetTasksFromDB(userID int) ([]model.Task, error) {
+	var tasks []model.Task
+	err := r.DB.Where("user_id = ? AND deleted_at IS NULL", userID).Find(&tasks).Error
+	if err != nil {
+		return nil, fmt.Errorf("erro ao buscar tarefas no banco de dados: %w", err)
+	}
+
+	return tasks, nil
 }

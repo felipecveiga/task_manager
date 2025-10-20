@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/felipecveiga/task_manager/model"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -29,6 +30,7 @@ func Connection() *gorm.DB {
 		log.Fatal("Falha com a conexao com o database", err)
 	}
 
+	db.AutoMigrate(&model.User{}, &model.Task{})
 	fmt.Println("Conexao com o banco de dados realizada com sucesso")
 	return db
 }

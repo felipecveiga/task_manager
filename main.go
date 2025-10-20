@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/felipecveiga/task_manager/db"
@@ -9,12 +10,17 @@ import (
 
 func main() {
 
-	db := db.Connection()
+	clientDB := db.Connection()
+
+	//repository := repository.NewUserRepository(clientDB)
+	//service := service.NewUserService(repository)
+	//handler := handler.NewUserHandler(service)
 
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	e.Logger.Fatal(e.Start(":1323"))
+	fmt.Println(clientDB)
+	e.Logger.Fatal(e.Start(":8080"))
 }

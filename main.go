@@ -14,12 +14,23 @@ func main() {
 
 	clientDB := db.Connection()
 
-	repository := repository.NewUserRepository(clientDB)
-	service := service.NewUserService(repository)
-	handler := handler.NewUserHandler(service)
+	//User
+	userRepo := repository.NewUserRepository(clientDB)
+	userService := service.NewUserService(userRepo)
+	userHandler := handler.NewUserHandler(userService)
+
+	// Task
+	taskRepo := repository.NewTaskRepository(clientDB)
+	taskService := service.NewTaskService(taskRepo)
+	taskHandler := handler.NewTaskHandler(taskService)
 
 	e := echo.New()
-	e.POST("/user", handler.Create)
+
+	// Rotas User
+	e.POST("/user", userHandler.Create)
+
+	// Rotas Task
+	e.POST("/user/:id/tasks", taskHandler.Create)
 
 	fmt.Println(clientDB)
 	e.Logger.Fatal(e.Start(":8080"))

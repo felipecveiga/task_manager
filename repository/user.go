@@ -9,7 +9,7 @@ import (
 
 type Repository interface {
 	CreateUserFromDB(vote *model.User) error
-	GetUserByEmail(email string) (bool, error)
+	ExistsUserByEmail(email string) (bool, error)
 }
 
 type repository struct {
@@ -31,7 +31,7 @@ func (r *repository) CreateUserFromDB(user *model.User) error {
 	return nil
 }
 
-func (r *repository) GetUserByEmail(email string) (bool, error) {
+func (r *repository) ExistsUserByEmail(email string) (bool, error) {
 	var user model.User
 
 	result := r.DB.Where("email = ?", email).First(&user)

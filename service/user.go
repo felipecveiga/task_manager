@@ -23,7 +23,7 @@ func NewUserService(r repository.Repository) Service {
 
 func (s *service) CreateUser(user *model.User) error {
 
-	hasEmail, err := s.Repository.GetUserByEmail(user.Email)
+	hasEmail, err := s.Repository.ExistsUserByEmail(user.Email)
 	if err != nil {
 		return err
 	}

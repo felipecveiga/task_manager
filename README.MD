@@ -19,16 +19,30 @@ API de gerenciamento de tarefas desenvolvida em **Golang** com **GORM** e **MySQ
 
 ## 📁 Estrutura do Projeto
 
+```bash
 .
-├── db/ # Conexão com o banco de dados
-├── handler/ # Handlers HTTP (controladores)
-├── repository/ # Camada de acesso ao banco
-├── service/ # Regras de negócio
-├── model/ # Models GORM
-├── .env.docker # Variáveis de ambiente para Docker
+├── db/
+│   └── connection.go       # Configuração do cliente MySQL                 
+├── handler/
+│   └── user.go             # Handlers HTTP (controladores)
+│   └── task.go
+├── model/
+│   └── user.go             # Define os dados e structs (User, Task)
+├── repository/
+│   └── user.go             # Interações com o banco de dados
+│   └── task.go
+├── service/
+│   └── user.go             # Regras de negócio (validações e lógica)
+│   └── task.go
+├── main.go                 # Ponto de entrada da aplicação
 ├── Dockerfile
-├── docker-compose.yml
-└── main.go
+├── docker-compose.yml 
+├── .env                    # Variáveis de ambiente
+├── go.mod                  # Dependências do projeto
+├── go.sum                  # Sums de verificação
+├── Makefile                # Comando make run para rodar o projeto
+└── README.md               # Documentação
+```
 
 
 ---

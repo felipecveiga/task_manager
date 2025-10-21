@@ -6,16 +6,12 @@ import (
 	"os"
 
 	"github.com/felipecveiga/task_manager/model"
-	"github.com/joho/godotenv"
+	
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func Connection() *gorm.DB {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("erro ao carregar o arquivo .env ")
-	}
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=True",
 		os.Getenv("DB_USUARIO"),

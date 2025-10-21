@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    image: task-manager:latest
+    env_file:
+      - .env
+    networks:
+      - back-tier
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:3306", "--timeout=60", "--", "./task-manager"]
+
+  db:
+    image: mysql:latest
+    networks:
+      - back-tier
+    environment:
+      MYSQL_USER: ${DB_USUARIO}
+      MYSQL_PASSWORD: ${DB_SENHA}
+      MYSQL_ROOT_PASSWORD: ${DB_SENHA}
+      MYSQL_DATABASE: ${DB_NOME}        
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+  back-tier:
+    driver: bridge
+
+volumes:
+  db_data:

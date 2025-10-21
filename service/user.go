@@ -7,6 +7,7 @@ import (
 	"github.com/felipecveiga/task_manager/repository"
 )
 
+//go:generate mockgen -source=./user.go -destination=./user_mock.go -package=service
 type Service interface {
 	CreateUser(user *model.User) error
 }

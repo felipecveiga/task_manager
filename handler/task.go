@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+//go:generate mockgen -source=./task.go -destination=./task_mock.go -package=handler
 type TaskHandler interface {
 	Create(c echo.Context) error
 	GetTasks(c echo.Context) error

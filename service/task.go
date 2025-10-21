@@ -5,6 +5,7 @@ import (
 	"github.com/felipecveiga/task_manager/repository"
 )
 
+//go:generate mockgen -source=./task.go -destination=./task_mock.go -package=service
 type TaskService interface {
 	CreateTask(userID int, task *model.Task) error
 	GetTasksByID(userID int) ([]model.Task, error)

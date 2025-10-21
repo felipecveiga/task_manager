@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+//go:generate mockgen -source=./user.go -destination=./user_mock.go -package=handler
 type Handler interface {
 	Create(c echo.Context) error
 }

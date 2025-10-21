@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
+//go:generate mockgen -source=./task.go -destination=./task_mock.go -package=repository
+
 type TaskRepository interface {
 	CreateTaskFromDB(userID int, task *model.Task) error
 	GetTasksFromDB(userID int) ([]model.Task, error)

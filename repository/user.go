@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//go:generate mockgen -source=./user.go -destination=./user_mock.go -package=repository
 type Repository interface {
 	CreateUserFromDB(vote *model.User) error
 	ExistsUserByEmail(email string) (bool, error)

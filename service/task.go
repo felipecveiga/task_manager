@@ -8,6 +8,7 @@ import (
 type TaskService interface {
 	CreateTask(userID int, task *model.Task) error
 	GetTasksByID(userID int) ([]model.Task, error)
+	UpdateTask(userID int, taskID int, updatedTask *model.Task) error
 	DeleteTask(userID int, taskID int) error
 }
 
@@ -41,10 +42,22 @@ func (s *taskService) GetTasksByID(userID int) ([]model.Task, error) {
 	return tasks, nil
 }
 
+func (s *taskService) UpdateTask(userID int, taskID int, updatedTask *model.Task) error {
+	
+	err := s.Repository.UpdateTaskInDB(userID, taskID, updatedTask)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}	
+
 func (s *taskService) DeleteTask(userID int, taskID int) error {
 	err := s.Repository.DeleteTaskFromDB(userID, taskID)
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
+

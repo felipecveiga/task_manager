@@ -30,6 +30,7 @@ func main() {
 	// Rotas Task
 	e.POST("/user/:id/tasks", taskHandler.Create)
 	e.GET("/user/:id/tasks", taskHandler.GetTasks)
+	e.PATCH("/user/:id/tasks/:task_id", taskHandler.Update)
 	e.DELETE("/user/:id/tasks/:task_id", taskHandler.Delete)
 
 	e.Logger.Fatal(e.Start(":8080"))

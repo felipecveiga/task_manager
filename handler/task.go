@@ -12,6 +12,7 @@ import (
 type TaskHandler interface {
 	Create(c echo.Context) error
 	GetTasks(c echo.Context) error
+	Update(c echo.Context) error
 	Delete(c echo.Context) error
 }
 
@@ -56,6 +57,30 @@ func (h *taskHandler) GetTasks(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, tasks)
+}
+
+func (h *taskHandler) Update(c echo.Context) error {
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "id inválido"})
+	}
+
+	taskID, err := strconv.Atoi(c.Param("task_id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "id inválido"})
+	}
+
+	var task model.Task
+	if err := c.Bind(&task); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string {"error": "erro ao ler os dados da requisição"})
+	}
+
+	err = h.Service.UpdateTask(userID, taskID, &task)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	return c.NoContent(http.StatusNoContent)
 }
 
 func (h *taskHandler) Delete(c echo.Context) error {

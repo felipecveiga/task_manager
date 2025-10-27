@@ -51,6 +51,14 @@ API de gerenciamento de tarefas desenvolvida em **Golang** com **GORM** e **MySQ
 
 - **Usuário**
   - Criar usuário (`POST /user`)
+  ```
+    {
+	    "nome": "nome1",
+	    "email": "nome1@gmail.com",
+	    "password": "123456"
+    }
+
+  ```
 
 - **Tarefas**
   - Criar tarefa (`POST /user/:id/tasks`)

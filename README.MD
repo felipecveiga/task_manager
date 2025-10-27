@@ -62,6 +62,14 @@ API de gerenciamento de tarefas desenvolvida em **Golang** com **GORM** e **MySQ
 
 - **Tarefas**
   - Criar tarefa (`POST /user/:id/tasks`)
+	```
+		{
+   			 "title": "Software Developer",
+   			 "description": "Desenvolvendo um software de gerenciamento de tarefas", 
+   			 "status": "done"
+		}
+	```
+
   - Buscar tarefas de um usuário (`GET /user/:id/tasks`)
   - Atualizar tarefa (`PATCH /user/:id/tasks/:task_id`)
   - Deletar tarefa (deleção lógica - `DELETE /user/:id/tasks/:task_id`)

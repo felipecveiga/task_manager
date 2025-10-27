@@ -50,6 +50,7 @@ API de gerenciamento de tarefas desenvolvida em **Golang** com **GORM** e **MySQ
 ## 🧠 Funcionalidades Implementadas
 
 - **Usuário**
+> Não é possivel criar mais de um usuário com o mesmo E-mail.
   - Criar usuário (`POST /user`)
   ```
     {

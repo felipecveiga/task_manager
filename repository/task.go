@@ -27,14 +27,9 @@ func NewTaskRepository(db *gorm.DB) TaskRepository {
 }
 
 func (r *taskRepository) CreateTaskFromDB(userID int, task *model.Task) error {
-	taskUser := &model.Task{
-		Title:       task.Title,
-		Description: task.Description,
-		UserID:      userID,
-		Status:      task.Status,
-	}
+	task.UserID = userID
 
-	err := r.DB.Create(taskUser).Error
+	err := r.DB.Create(task).Error
 	if err != nil {
 		return fmt.Errorf("erro ao criar tarefa no banco de dados: %w", err)
 	}
